@@ -27,6 +27,7 @@ export default {
    data() {
       return {
          form: {
+            // 下面改为 id:'', 没用，因为 watch 里会 immediate 执行
             id: this.propData.id || "",
             content: "",
          },
@@ -36,8 +37,13 @@ export default {
    watch: {
       propData: {
          deep: true,
+         // 设置为 false 也不行，那样第一次打开弹框的时候，就是 data 里指定的数据了
+         // 1. 如果 data 里是this.propData.id || ""，是一样的效果
+         // 2. 如果 data 里是 ""，那么第一次打开弹框就是空的，也是 bug
+         // 第二种情况更容易被发现，但是发现了之后依然可能采用设置immediate的方式进行解决
          immediate: true,
          handler(val) {
+            console.log("watch");
             this.form.id = val.id;
          },
       },
@@ -47,9 +53,8 @@ export default {
          this.dialogVisible = true;
       },
       hideDialog() {
-         console.log(this.form);
+         // 关闭弹框时重置表单数据
          this.$refs.formRef.resetFields();
-         console.log(this.form);
          this.dialogVisible = false;
       },
       async confirm() {
