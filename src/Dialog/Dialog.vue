@@ -1,7 +1,7 @@
 <template>
    <div>
       <el-button type="primary" @click="openDialog">点击打开弹框</el-button>
-      <el-dialog title="提示" class="dialog" :visible.sync="dialogVisible">
+      <el-dialog title="提示" class="dialog" :visible.sync="dialogVisible" @closed="hideDialog">
          <span>prop传进来的内容：{{ propData }}</span>
          <el-form ref="formRef" :model="form" label-width="100px">
             <el-form-item prop="id" label="form.id">
