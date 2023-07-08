@@ -1,9 +1,9 @@
 <template>
    <div>
       <el-button type="primary" @click="openDialog">点击打开弹框</el-button>
-      <el-dialog title="提示" :visible.sync="dialogVisible">
+      <el-dialog title="提示" class="dialog" :visible.sync="dialogVisible">
          <span>prop传进来的内容：{{ propData }}</span>
-         <el-form ref="formRef" :model="form" label-width="150px">
+         <el-form ref="formRef" :model="form" label-width="100px">
             <el-form-item prop="id" label="form.id">
                <el-input disabled v-model="form.id" />
             </el-form-item>
@@ -69,4 +69,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.dialog >>> .el-dialog {
+   min-width: 300px;
+}
+</style>
