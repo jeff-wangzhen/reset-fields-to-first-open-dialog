@@ -1,7 +1,6 @@
 <template>
    <div>
-      <el-button type="primary" @click="openDialog">点击打开弹框</el-button>
-      <el-dialog title="提示" class="dialog" :visible.sync="dialogVisible" @closed="hideDialog">
+      <el-dialog title="提示" class="dialog" :visible.sync="visible" @closed="hideDialog">
          <span>prop传进来的内容：{{ propData }}</span>
          <el-form ref="formRef" :model="form" label-width="100px">
             <el-form-item prop="id" label="form.id">
@@ -22,6 +21,7 @@
 <script>
 export default {
    props: {
+      visible: { type: Boolean, default: false },
       propData: { type: Object, default: () => ({}) },
    },
    data() {
@@ -31,7 +31,6 @@ export default {
             id: this.propData.id || "",
             content: "",
          },
-         dialogVisible: false,
       };
    },
    watch: {
@@ -49,13 +48,10 @@ export default {
       },
    },
    methods: {
-      openDialog() {
-         this.dialogVisible = true;
-      },
       hideDialog() {
          // 关闭弹框时重置表单数据
          this.$refs.formRef.resetFields();
-         this.dialogVisible = false;
+         this.$emit("update:visible", false);
       },
       async confirm() {
          // await submit();

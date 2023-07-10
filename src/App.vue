@@ -2,7 +2,9 @@
    <div id="app">
       <div class="center">
          <div class="margin">将要传入弹框组件的数据: {{ injectData }}</div>
-         <Dialog :prop-data="injectData" />
+
+         <el-button type="primary" @click="openDialog">点击打开弹框</el-button>
+         <Dialog :visible.sync="dialogVisible" :prop-data="injectData" />
          <el-button class="margin" @click="change"> injectData.id++</el-button>
       </div>
       <div class="explanation">
@@ -25,10 +27,13 @@ export default {
    name: "App",
    computed: {},
    data() {
-      return { injectData: { id: 1 } };
+      return { dialogVisible: false, injectData: { id: 1 } };
    },
    components: { Dialog },
    methods: {
+      openDialog() {
+         this.dialogVisible = true;
+      },
       change() {
          this.injectData.id++;
       },
