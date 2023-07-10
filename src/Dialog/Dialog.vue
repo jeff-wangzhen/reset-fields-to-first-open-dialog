@@ -4,7 +4,7 @@
          <span>prop传进来的内容：{{ propData }}</span>
          <el-form ref="formRef" :model="form" label-width="100px">
             <el-form-item prop="id" label="form.id">
-               <el-input disabled v-model="form.id" />
+               <el-input v-model="form.id" />
             </el-form-item>
             <el-form-item prop="content" label="form.content">
                <el-input v-model="form.content" />
